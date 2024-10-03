@@ -1,31 +1,15 @@
 <script>
-	import HeroText from "../lib/components/HeroText.svelte";
-	import Footer from "../lib/components/Footer.svelte";
-	import DottedCallOut from "../lib/components/DottedCallOut.svelte";
-	import { onMount } from "svelte";
-	import toast, { Toaster } from 'svelte-french-toast';
-	import Faq from "../lib/components/FAQ.svelte";
+	import CreateSubject from '$lib/components/CreateSubject.svelte';
 
+  </script>
+  
+  <div class="hero min-h-screen bg-base-200">
+	<div class="hero-content text-center">
+	  <div class="max-w-md">
+		<h1 class="text-5xl font-bold mb-8">NoDyspute</h1>
+		<p class="py-6">Create a new subject to start gathering ideas and votes!</p>
+		<CreateSubject />
+	  </div>
+	</div>
+  </div>
 
-    onMount(() => {
-		toast.success("It works!");
-	})
-
-    function seetoast() {
-        toast.error('something went wrong')
-    }
-</script>
-
-<HeroText />
-<Toaster />
-
-<div class="flex justify-center">
-    <button on:click={seetoast} class="btn btn-secondary">
-        Click here to see the toast
-    </button>
-</div>
-
-<Faq />
-
-<DottedCallOut />
-<Footer />
