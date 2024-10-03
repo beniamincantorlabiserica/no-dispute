@@ -35,6 +35,7 @@
     onMount(async () => {
       console.log('Subject ID:', subjectId);
         ideas = await getAllIdeas(subjectId);
+        ideas = ideas.sort((a, b) => b.votes - a.votes)
     });
 
     async function userVote(id, voteType) {
@@ -58,8 +59,9 @@
         }
       });
 
+      ideas = ideas.sort((a, b) => b.votes - a.votes)
       ideas = [...ideas];
-      
+
         let response = await vote(subjectId, id, voteType);
         return;
       }
