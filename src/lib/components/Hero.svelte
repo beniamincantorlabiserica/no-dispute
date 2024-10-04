@@ -12,7 +12,7 @@
     <div class="hero-content flex-col lg:flex-row-reverse">
       <img
         src={heroImage}
-        class="max-w-sm  bg-base-100" />
+        class="w-[80%] m-auto  bg-base-100" />
         <div class="hero-content text-left">
             <div>
               <h1 class="text-5xl font-bold">Welcome to No Dispute 🤝</h1>

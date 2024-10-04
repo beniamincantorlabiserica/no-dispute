@@ -2,6 +2,7 @@
     import { goto } from '$app/navigation';
     import { createSubject } from '$lib/storage.js';
     import { onMount } from 'svelte';
+    import confetti from 'canvas-confetti';
 
     let title = '';
     let error = '';
@@ -16,6 +17,11 @@ function adjustInputSize() {
 }
   
     async function handleSubmit() {
+        confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
       let data = await createSubject(title)
       console.log("DATA = ", data);
     //   goto('/' + data.id);
