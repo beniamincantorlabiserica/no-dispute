@@ -8,7 +8,9 @@
     async function handleSubmit() {
       let data = await createSubject(title)
       console.log("DATA = ", data);
-      goto('/' + data.id);
+    //   goto('/' + data.id);
+    goto(`/${data.id}?title=${encodeURIComponent(title)}`);
+
     }
   </script>
   
