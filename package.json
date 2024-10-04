@@ -29,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"canvas-confetti": "^1.9.3",
 		"lucide-svelte": "^0.447.0",
 		"pocketbase": "^0.21.5",
 		"svelte-french-toast": "^1.2.0"
