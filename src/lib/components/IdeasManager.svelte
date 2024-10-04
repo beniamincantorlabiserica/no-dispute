@@ -36,7 +36,28 @@
       console.log('Subject ID:', subjectId);
         ideas = await getAllIdeas(subjectId);
         ideas = ideas.sort((a, b) => b.votes - a.votes)
+
+        pb.collection('subjects').subscribe(subjectId, function (e) {
+            console.log('New idea added:', e.record.ideas);
+            ideas = mergeUniqueIdeas(ideas, e.record.ideas);
+
+            ideas = [... ideas, ...e.record.ideas];
+            ideas = ideas.sort((a, b) => b.votes - a.votes)
+        }, { /* other options like expand, custom headers, etc. */ });
+
     });
+
+    function mergeUniqueIdeas(existingIdeas, recordIdeas) {
+      const idMap = new Map(existingIdeas.map(idea => [idea.id, idea]));
+
+      recordIdeas.forEach(newIdea => {
+        if (!idMap.has(newIdea.id)) {
+          idMap.set(newIdea.id, newIdea);
+        }
+      });
+
+      return Array.from(idMap.values());
+    }
 
     async function userVote(id, voteType) {
       console.log("ENTERING VOTING FUNC")
