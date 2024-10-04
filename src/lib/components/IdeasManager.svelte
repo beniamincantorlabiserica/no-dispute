@@ -4,7 +4,10 @@
     import { onMount } from 'svelte';
     import { getAllIdeas } from '$lib/storage.js';
     import { vote } from "$lib/vote";
+    import { page } from '$app/stores';
+
     import PocketBase from 'pocketbase';
+	import DottedCallOut from './DottedCallOut.svelte';
 
     const pb = new PocketBase('https://pine-plus.pockethost.io');
     
@@ -12,6 +15,18 @@
     // $: voted = localStorage.getItem('voted') || false;
 
     let idea = '';
+    $: title = '';
+
+    let textarea;
+
+    function resizeTextarea() {
+      textarea.style.height = 'auto';
+      textarea.style.height = textarea.scrollHeight + 'px';
+    }
+
+    $: if (textarea) {
+      resizeTextarea();
+    }
   
     async function handleSubmit() {
       let ideaId = generateUniqueId();
@@ -35,41 +50,42 @@
 
 
     onMount(async () => {
+      title = $page.url.searchParams.get('title');
       console.log('Subject ID:', subjectId);
-        ideas = await getAllIdeas(subjectId);
-        ideas = ideas.sort((a, b) => b.votes - a.votes)
+      ideas = await getAllIdeas(subjectId);
+      ideas = ideas.sort((a, b) => b.votes - a.votes)
+      resizeTextarea();
+      console.log("Ideas at onMount: ", ideas);
 
-        console.log("Ideas at onMount: ", ideas);
+      pb.collection('subjects').subscribe(subjectId, function (e) {
+          console.log('Ideas pulled from db:', e.record.ideas);
+          ideas = mergeUniqueIdeas(ideas, e.record.ideas);
 
-        pb.collection('subjects').subscribe(subjectId, function (e) {
-            console.log('Ideas pulled from db:', e.record.ideas);
-            ideas = mergeUniqueIdeas(ideas, e.record.ideas);
+          ideas = [... ideas];
+          ideas = ideas.sort((a, b) => b.votes - a.votes)
+      }, { /* other options like expand, custom headers, etc. */ });
 
-            ideas = [... ideas];
-            ideas = ideas.sort((a, b) => b.votes - a.votes)
-        }, { /* other options like expand, custom headers, etc. */ });
-
-    });
+      });
 
     function mergeUniqueIdeas(existingIdeas, recordIdeas) {
-    const idMap = new Map(existingIdeas.map(idea => [idea.id, idea]));
-    
-    recordIdeas.forEach(newIdea => {
-        if (!idMap.has(newIdea.id)) {
-            idMap.set(newIdea.id, newIdea);
-            console.log("New idea added: ", newIdea);
-        } else {
-            const existingIdea = idMap.get(newIdea.id);
-            if (existingIdea.votes !== newIdea.votes) {
-                existingIdea.votes = newIdea.votes;
-                idMap.set(newIdea.id, existingIdea);
-                console.log("Votes updated for idea: ", existingIdea);
+        const idMap = new Map(existingIdeas.map(idea => [idea.id, idea]));
+        
+        recordIdeas.forEach(newIdea => {
+            if (!idMap.has(newIdea.id)) {
+                idMap.set(newIdea.id, newIdea);
+                console.log("New idea added: ", newIdea);
+            } else {
+                const existingIdea = idMap.get(newIdea.id);
+                if (existingIdea.votes !== newIdea.votes) {
+                    existingIdea.votes = newIdea.votes;
+                    idMap.set(newIdea.id, existingIdea);
+                    console.log("Votes updated for idea: ", existingIdea);
+                }
             }
-        }
-    });
-    
-    return Array.from(idMap.values());
-}
+        });
+        
+        return Array.from(idMap.values());
+    }
 
     async function userVote(id, voteType) {
       console.log("ENTERING VOTING FUNC")
@@ -119,8 +135,6 @@
 
     }
 
-
-
     function generateUniqueId() {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -129,18 +143,37 @@
     }
 
   </script>
+
+  <DottedCallOut text={title}/>
+
+  <div class="text-center">
+    <p class="text-xl font-semibold mb-2">Share Your Innovative Ideas! 💡🚀</p>
+    <p class="text-lg mb-4">Type your thoughts in the box below 👇</p>
+    <span class="text-4xl animate-bounce">⬇️</span>
+  </div>
+
+
+
+
+  <div class="flex justify-center">
+    <form on:submit|preventDefault={handleSubmit} class="form-control mt-8">
+      <div class="flex flex-col space-y-4 max-w-2xl mx-auto p-4">
+        <textarea
+          bind:value={idea}
+          bind:this={textarea}
+          on:input={resizeTextarea}
+          placeholder="Enter your idea"
+          required
+          class="textarea textarea-bordered w-full text-lg min-h-[2rem] resize-none overflow-hidden"
+        ></textarea>
+        <button type="submit" class="btn btn-primary self-end w-full">
+          Add Idea
+        </button>
+      </div>
+    </form>
+  </div>
   
-  <form on:submit|preventDefault={handleSubmit} class="form-control">
-    <div class="input-group">
-      <input 
-        bind:value={idea} 
-        placeholder="Enter your idea" 
-        required
-        class="input input-bordered flex-grow"
-      />
-      <button type="submit" class="btn btn-primary">Add Idea</button>
-    </div>
-  </form>
+  
 
   <ul class="space-y-4">
     {#key ideas}
