@@ -5,7 +5,8 @@
     import { getAllIdeas } from '$lib/storage.js';
     import { vote } from "$lib/vote";
     import { page } from '$app/stores';
-    import toast from 'svelte-french-toast';
+    import toast, { Toaster } from 'svelte-french-toast';
+
 
 
     import PocketBase from 'pocketbase';
@@ -158,17 +159,11 @@
     function copyLinkToClipboard() {
     navigator.clipboard.writeText(window.location.href)
       .then(() => {
-        toast.success('Link copied to clipboard!', {
-          position: 'top-center',
-          duration: 2000,
-        });
+        toast.success('Link copied to clipboard!');
       })
       .catch((error) => {
         console.error('Failed to copy: ', error);
-        toast.error('Failed to copy link. Please try again.', {
-          position: 'top-center',
-          duration: 2000,
-        });
+        toast.error('Failed to copy link. Please try again.');
       });
   }
 
@@ -176,6 +171,7 @@
 
   </script>
 
+<Toaster />
   <DottedCallOut text={title}/>
   <button
     on:click={copyLinkToClipboard}
@@ -254,3 +250,5 @@
       {/each}
     {/key}
   </ul>
+
+
