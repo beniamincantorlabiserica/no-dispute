@@ -4,8 +4,10 @@
     import { onMount } from 'svelte';
     import { getAllIdeas } from '$lib/storage.js';
     import { vote } from "$lib/vote";
+    import PocketBase from 'pocketbase';
 
-  
+    const pb = new PocketBase('https://pine-plus.pockethost.io');
+    
     $: ideas = new Set();
     // $: voted = localStorage.getItem('voted') || false;
 
@@ -37,27 +39,37 @@
         ideas = await getAllIdeas(subjectId);
         ideas = ideas.sort((a, b) => b.votes - a.votes)
 
+        console.log("Ideas at onMount: ", ideas);
+
         pb.collection('subjects').subscribe(subjectId, function (e) {
-            console.log('New idea added:', e.record.ideas);
+            console.log('Ideas pulled from db:', e.record.ideas);
             ideas = mergeUniqueIdeas(ideas, e.record.ideas);
 
-            ideas = [... ideas, ...e.record.ideas];
+            ideas = [... ideas];
             ideas = ideas.sort((a, b) => b.votes - a.votes)
         }, { /* other options like expand, custom headers, etc. */ });
 
     });
 
     function mergeUniqueIdeas(existingIdeas, recordIdeas) {
-      const idMap = new Map(existingIdeas.map(idea => [idea.id, idea]));
-
-      recordIdeas.forEach(newIdea => {
+    const idMap = new Map(existingIdeas.map(idea => [idea.id, idea]));
+    
+    recordIdeas.forEach(newIdea => {
         if (!idMap.has(newIdea.id)) {
-          idMap.set(newIdea.id, newIdea);
+            idMap.set(newIdea.id, newIdea);
+            console.log("New idea added: ", newIdea);
+        } else {
+            const existingIdea = idMap.get(newIdea.id);
+            if (existingIdea.votes !== newIdea.votes) {
+                existingIdea.votes = newIdea.votes;
+                idMap.set(newIdea.id, existingIdea);
+                console.log("Votes updated for idea: ", existingIdea);
+            }
         }
-      });
-
-      return Array.from(idMap.values());
-    }
+    });
+    
+    return Array.from(idMap.values());
+}
 
     async function userVote(id, voteType) {
       console.log("ENTERING VOTING FUNC")
