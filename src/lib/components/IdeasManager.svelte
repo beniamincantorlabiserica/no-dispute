@@ -5,6 +5,8 @@
     import { getAllIdeas } from '$lib/storage.js';
     import { vote } from "$lib/vote";
     import { page } from '$app/stores';
+    import toast from 'svelte-french-toast';
+
 
     import PocketBase from 'pocketbase';
 	import DottedCallOut from './DottedCallOut.svelte';
@@ -18,11 +20,21 @@
     $: title = '';
 
     let textarea;
+    const minHeight = '3rem';
 
     function resizeTextarea() {
-      textarea.style.height = 'auto';
-      textarea.style.height = textarea.scrollHeight + 'px';
+      if (textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${Math.max(parseInt(minHeight), textarea.scrollHeight)}px`;
+      }
     }
+
+  function resetTextarea() {
+    idea = '';
+    if (textarea) {
+      textarea.style.height = minHeight;
+    }
+  }
 
     $: if (textarea) {
       resizeTextarea();
@@ -33,6 +45,7 @@
       ideas = [...ideas,{id: ideaId, content: idea, votes: 0}];
       let ideaToSend = idea;
       idea = '';
+      resetTextarea();
       let response = await addIdea(subjectId, ideaToSend, ideaId);
       
       if(!response) {
@@ -113,7 +126,7 @@
 
         let response = await vote(subjectId, id, voteType);
         return;
-      }
+    }
 
       console.log("current vote type: ", voteType);
       console.log("updating votes")
@@ -142,9 +155,35 @@
       });
     }
 
+    function copyLinkToClipboard() {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => {
+        toast.success('Link copied to clipboard!', {
+          position: 'top-center',
+          duration: 2000,
+        });
+      })
+      .catch((error) => {
+        console.error('Failed to copy: ', error);
+        toast.error('Failed to copy link. Please try again.', {
+          position: 'top-center',
+          duration: 2000,
+        });
+      });
+  }
+
+
+
   </script>
 
   <DottedCallOut text={title}/>
+  <button
+    on:click={copyLinkToClipboard}
+    class="absolute top-2 right-2 btn btn-sm btn-ghost"
+    aria-label="Copy link to clipboard"
+  >
+  📲 Share with friends 
+  </button>
 
   <div class="text-center">
     <p class="text-xl font-semibold mb-2">Share Your Innovative Ideas! 💡🚀</p>
@@ -175,29 +214,43 @@
   
   
 
-  <ul class="space-y-4">
+  <ul class="space-y-4 mx-8 my-10">
     {#key ideas}
       {#each ideas as idea, index}
-        <li class="card bg-base-100 shadow-xl">
-          <div class="card-body">
+      <li class="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden max-w-[600px] m-auto mt-4">
+        <div class="card-body p-6 flex flex-row items-stretch">
+          <!-- Left side: Idea content -->
+          <div class="flex-grow pr-6">
             <p class="text-lg">{idea.content}</p>
-            <div class="card-actions justify-between items-center mt-4">
-              <span class="text-sm font-semibold">Votes: {idea.votes}</span>
-              <div class="btn-group">
-                <button class="btn btn-sm  {localStorage.getItem(idea.id) === '1' ? 'btn-primary' : 'btn-outline'}" on:click={() => userVote(idea.id, 'up')}>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>
-                </button>
-                <button class="btn btn-sm  {localStorage.getItem(idea.id) === '-1' ? 'btn-error' : 'btn-outline'}" on:click={() => userVote(idea.id, 'down')}>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </div>
-            </div>
           </div>
-        </li>
+          
+          <!-- Right side: Voting -->
+          <div class="flex flex-col justify-center items-center space-y-2 min-w-[80px]">
+            <!-- Upvote button -->
+            <button 
+              class="btn btn-circle btn-sm {localStorage.getItem(idea.id) === '1' ? 'btn-primary' : 'btn-outline'}" 
+              on:click={() => userVote(idea.id, 'up')}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
+            
+            <!-- Vote count -->
+            <span class="text-xl font-bold">{idea.votes}</span>
+            
+            <!-- Downvote button -->
+            <button 
+              class="btn btn-circle btn-sm {localStorage.getItem(idea.id) === '-1' ? 'btn-error' : 'btn-outline'}" 
+              on:click={() => userVote(idea.id, 'down')}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </li>
       {/each}
     {/key}
   </ul>
