@@ -52,17 +52,24 @@
     });
 
     function mergeUniqueIdeas(existingIdeas, recordIdeas) {
-      const idMap = new Map(existingIdeas.map(idea => [idea.id, idea]));
-
-      recordIdeas.forEach(newIdea => {
+    const idMap = new Map(existingIdeas.map(idea => [idea.id, idea]));
+    
+    recordIdeas.forEach(newIdea => {
         if (!idMap.has(newIdea.id)) {
-          idMap.set(newIdea.id, newIdea);
-          console.log("New idea added: ", newIdea);
+            idMap.set(newIdea.id, newIdea);
+            console.log("New idea added: ", newIdea);
+        } else {
+            const existingIdea = idMap.get(newIdea.id);
+            if (existingIdea.votes !== newIdea.votes) {
+                existingIdea.votes = newIdea.votes;
+                idMap.set(newIdea.id, existingIdea);
+                console.log("Votes updated for idea: ", existingIdea);
+            }
         }
-      });
-
-      return Array.from(idMap.values());
-    }
+    });
+    
+    return Array.from(idMap.values());
+}
 
     async function userVote(id, voteType) {
       console.log("ENTERING VOTING FUNC")
