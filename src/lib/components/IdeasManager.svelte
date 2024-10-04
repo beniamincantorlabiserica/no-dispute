@@ -43,7 +43,7 @@
             console.log('New idea added:', e.record.ideas);
             ideas = mergeUniqueIdeas(ideas, e.record.ideas);
 
-            ideas = [... ideas, ...e.record.ideas];
+            ideas = [... ideas];
             ideas = ideas.sort((a, b) => b.votes - a.votes)
         }, { /* other options like expand, custom headers, etc. */ });
 
