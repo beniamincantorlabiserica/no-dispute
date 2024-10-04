@@ -5,6 +5,7 @@
 
     import { fontStore } from '$lib/stores/fontStore';
     import { onMount } from 'svelte';
+	import ThemeToggle from "../lib/components/ThemeToggle.svelte";
 
     let fontLink;
 
@@ -26,6 +27,6 @@
 </svelte:head>
   
   <div data-theme={$theme} style="font-family: {$fontStore.fontFamily}">
-   
+    <ThemeToggle />
     <slot />
   </div>

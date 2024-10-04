@@ -6,6 +6,7 @@
     import { vote } from "$lib/vote";
     import { page } from '$app/stores';
     import toast, { Toaster } from 'svelte-french-toast';
+    import confetti from 'canvas-confetti';
 
 
 
@@ -42,6 +43,11 @@
     }
   
     async function handleSubmit() {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
       let ideaId = generateUniqueId();
       ideas = [...ideas,{id: ideaId, content: idea, votes: 0}];
       let ideaToSend = idea;
@@ -175,7 +181,7 @@
   <DottedCallOut text={title}/>
   <button
     on:click={copyLinkToClipboard}
-    class="absolute top-2 right-2 btn btn-sm btn-ghost"
+    class="absolute top-20 right-2 btn btn-sm btn-ghost"
     aria-label="Copy link to clipboard"
   >
   📲 Share with friends 

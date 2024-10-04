@@ -2,12 +2,19 @@
     import { page } from '$app/stores';
 	import IdeasManager from '../../lib/components/IdeasManager.svelte';
     import { Github, Globe } from 'lucide-svelte';
+    import { goto } from '$app/navigation';
+
     
       const id = $page.params.id;
       console.log(`Current page ID: ${id}`);
       // Perform other operations with id
       const currentYear = new Date().getFullYear();
-  </script>
+      
+      function goToIndex(){
+        goto('/');
+      }
+      
+</script>
 
 
 <IdeasManager subjectId={id} />
@@ -17,7 +24,7 @@
       <div class="text-center">
         <h2 class="text-3xl font-bold mb-4">Want to create your own discussion subject? 🚀</h2>
         <p class="text-lg mb-6">Join our community and start engaging conversations today!</p>
-        <button class="btn btn-primary btn-lg hover:btn-secondary transition-colors duration-300">
+        <button class="btn btn-primary btn-lg hover:btn-secondary transition-colors duration-300" on:click={goToIndex}>
           Try Now
         </button>
       </div>
