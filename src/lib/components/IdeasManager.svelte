@@ -4,8 +4,10 @@
     import { onMount } from 'svelte';
     import { getAllIdeas } from '$lib/storage.js';
     import { vote } from "$lib/vote";
+    import PocketBase from 'pocketbase';
 
-  
+    const pb = new PocketBase('https://pine-plus.pockethost.io');
+    
     $: ideas = new Set();
     // $: voted = localStorage.getItem('voted') || false;
 
