@@ -39,8 +39,10 @@
         ideas = await getAllIdeas(subjectId);
         ideas = ideas.sort((a, b) => b.votes - a.votes)
 
+        console.log("Ideas at onMount: ", ideas);
+
         pb.collection('subjects').subscribe(subjectId, function (e) {
-            console.log('New idea added:', e.record.ideas);
+            console.log('Ideas pulled from db:', e.record.ideas);
             ideas = mergeUniqueIdeas(ideas, e.record.ideas);
 
             ideas = [... ideas];
@@ -55,6 +57,7 @@
       recordIdeas.forEach(newIdea => {
         if (!idMap.has(newIdea.id)) {
           idMap.set(newIdea.id, newIdea);
+          console.log("New idea added: ", newIdea);
         }
       });
 
