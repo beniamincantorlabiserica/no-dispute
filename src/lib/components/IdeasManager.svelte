@@ -28,7 +28,7 @@
 
     let owner = false;
 
-      if (subjectId === "softwarebugsnod") {
+      if (subjectId === "no-dispute-bugs") {
         owner = true;
       }
 
@@ -184,11 +184,11 @@
       let text = title + ' - No Dispute \n\n' + window.location.href + ' \n\n\n Share your ideas with the world! 🚀';
     navigator.clipboard.writeText(text)
       .then(() => {
-        toast.success('Link copied to clipboard!');
+        toast.success(translations[$language].clipboardSuccess);
       })
       .catch((error) => {
         // console.error('Failed to copy: ', error);
-        toast.error('Failed to copy link. Please try again.');
+        toast.error(translations[$language].clipboardError);
       });
   }
 
@@ -208,8 +208,7 @@
 
   {#if owner}
   <div class="text-center">
-    <p class="text-xl font-semibold mb-2">{translations[$language].ideaDescriptionOne}</p>
-    <p class="text-lg mb-4">If you found any bugs in the app please report them 👇</p>
+    <p class="text-xl font-semibold mt-4">{@html translations[$language].customOwnerText}</p>
     <span class="text-4xl animate-bounce">⬇️</span>
   </div>
   {:else}

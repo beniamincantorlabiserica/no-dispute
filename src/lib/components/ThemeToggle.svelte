@@ -14,7 +14,7 @@
   <div class="flex-1">
     <div class="flex items-center">
       <img src={icon} class="w-10 mr-2" alt="App Icon"/>
-      <span class="text-xl font-bold">No Dispute</span>
+      <span class="text-xl font-bold">NoDispute</span>
     </div>
   </div>
   <div class="flex-none gap-2">

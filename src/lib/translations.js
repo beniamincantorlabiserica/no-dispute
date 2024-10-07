@@ -44,6 +44,7 @@ export const translations = {
       createOwnSubject: "Want to create your own discussion subject? 🚀",
       createOwnSubjectDescription: "Join our community and start engaging conversations today!",
       createOwnSubjectButton: "Try Now",
+      customOwnerText: "Hi there! I'm Beniamin, the creator of NoDispute.<br> I hope you enjoy using the app! If you have any feedback or suggestions, feel free to create/vote on an idea or reach out to me on Twitter. <br>Happy voting! 🚀",
     },
     dk: {
       heroWelcome: "Velkommen til NoDispute 🤝",
@@ -89,6 +90,7 @@ export const translations = {
       createOwnSubject: "Vil du oprette dit eget diskussionsemne? 🚀",
       createOwnSubjectDescription: "Bliv en del af vores fællesskab og start engagerende samtaler i dag!",
       createOwnSubjectButton: "Prøv nu",
+      customOwnerText: "Hej med dig! Jeg er Beniamin, skaberen af NoDispute.<br> Jeg håber, du nyder at bruge appen! Hvis du har feedback eller forslag, er du velkommen til at oprette/stemme på en idé eller kontakte mig på Twitter. <br>God fornøjelse med afstemningen! 🚀",
     },
     ro: {
       heroWelcome: "Bine ați venit la NoDispute 🤝",
@@ -134,5 +136,6 @@ export const translations = {
       createOwnSubject: "Doriți să creați propriul subiect de discuție? 🚀",
       createOwnSubjectDescription: "Alăturați-vă comunității noastre și începeți conversații angajante astăzi!",
       createOwnSubjectButton: "Încercați acum",
+      customOwnerText: "Bună! Sunt Beniamin, creatorul NoDispute.<br> Sper să vă placă să folosiți aplicația! Dacă aveți feedback sau sugestii, nu ezitați să creați/votați o idee sau să mă contactați pe Twitter. <br>Votare plăcută! 🚀",
     },
   };
