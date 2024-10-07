@@ -24,7 +24,7 @@
               </p>
               <div class="py-6 text-xs">
                 <div>No Dispute is in testing and wants to continuously improve.</div>
-                <div>If you find any bugs write them down in this NoDispute <a href="https://nodispute.beniamin.io/softwarebugsnod?title=Open%20list%20for%20any%20bugs%20in%20the%20web-app%2C%20please%20feel%20free%20to%20share%20them%20😁" class="underline" target="_blank">link</a></div>
+                <div>If you find any bugs write them down in this NoDispute <a href="https://nodispute.beniamin.io/no-dispute-bugs" class="underline" target="_blank">link</a></div>
 
               </div>
               <button class="btn btn-primary" on:click={scrollToSection}>{translations[$language]?.heroButton || translations.en.heroButton} 🎉</button>
