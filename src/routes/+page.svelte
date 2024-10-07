@@ -10,7 +10,8 @@
 	import image4 from "$lib/images/3.png";
 	import demoImage from "$lib/images/demo.png";
     import { Github, Globe } from 'lucide-svelte';
-    
+	import { language } from '$lib/stores/language';
+    import { translations } from '$lib/translations';
      
     // Perform other operations with id
     const currentYear = new Date().getFullYear();
@@ -22,17 +23,17 @@
 
 
 
-  const features = [
-    { emoji: "🤝", title: "Collaborative Decision Making", description: "Bring your team together to make decisions efficiently and fairly." },
-    { emoji: "📊", title: "Transparent Voting", description: "See real-time results and understand the group's preferences clearly." },
-    { emoji: "⏱️", title: "Time-Saving", description: "Reduce meeting times and reach conclusions faster with structured discussions." }
+  $: features = [
+    { emoji: "🤝", title: translations[$language].collaborativeTitle, description: translations[$language].collaborativeDescription },
+    { emoji: "📊", title: translations[$language].transparentTitle, description: translations[$language].transparentDescription },
+    { emoji: "⏱️", title: translations[$language].timeSavingTitle, description: translations[$language].timeSavingDescription }
   ];
 
-  const steps = [
-    { emoji: "🎯", title: "Create a Subject", description: "Start by creating a new subject for discussion or decision.", image: image1 },
-    { emoji: "💡", title: "Add Ideas", description: "Encourage team members to contribute their ideas and proposals.", image: image2 },
-    { emoji: "🗳️", title: "Vote and Discuss", description: "Cast votes on the ideas and engage in constructive discussions.", image: image3 },
-    { emoji: "🏆", title: "Reach Consensus", description: "Review the voting results and come to a collective decision.", image: image4 }
+  $: steps = [
+    { emoji: "🎯", title: translations[$language].howToUseStepOne, description: translations[$language].howToUseStepOneDescription, image: image1 },
+    { emoji: "💡", title: translations[$language].howToUseStepTwo, description: translations[$language].howToUseStepTwoDescription, image: image2 },
+    { emoji: "🗳️", title: translations[$language].howToUseStepThree, description: translations[$language].howToUseStepThreeDescription, image: image3 },
+    { emoji: "🏆", title: translations[$language].howToUseStepFour, description: translations[$language].howToUseStepFourDescription, image: image4 }
   ];
 
 
@@ -46,7 +47,7 @@
 	  <div class="bg-base-200 rounded-3xl shadow-lg p-8" in:fade="{{ duration: 500 }}">
 		<div class="text-center">
 		  <h1 class="text-4xl font-bold mb-6 text-primary">NoDispute</h1>
-		  <p class="mb-6 text-base-content">Create a new subject to start gathering ideas and votes!</p>
+		  <p class="mb-6 text-base-content">{translations[$language].nodisputeCreation}</p>
 		  <CreateSubject />
 		</div>
 	  </div>
@@ -55,7 +56,7 @@
 
 
   <div class="container mx-auto px-4 py-12">
-	<h2 class="text-3xl font-bold text-center mb-8">Why Choose NoDispute?</h2>
+	<h2 class="text-3xl font-bold text-center mb-8">{translations[$language].mainDescriptionTitle}</h2>
 	
 	<div class="grid md:grid-cols-3 gap-8 mb-16">
 	  {#each features as feature}
@@ -69,7 +70,7 @@
 	  {/each}
 	</div>
   
-	<h2 class="text-3xl font-bold text-center mb-8">How to Use NoDispute</h2>
+	<h2 class="text-3xl font-bold text-center mb-8">{translations[$language].howToUse}</h2>
   
 	<div class="space-y-16">
 		{#each steps as step, index}
@@ -90,11 +91,11 @@
 	
 	
 	  <div class="mt-16 text-center">
-		<h3 class="text-2xl font-bold mb-4">See NoDispute in Action</h3>
+		<h3 class="text-2xl font-bold mb-4">{translations[$language].seeNoDisputeInAction}</h3>
 		<div class="aspect-w-16 aspect-h-9">
 		  <img src={demoImage} alt="NoDyspute Demo" class="rounded-lg shadow-lg mx-auto border-2 w-[50%]" />
 		</div>
-		<p class="mt-4 text-sm text-base-content/70">Watch how groups use NoDispute to streamline their decision-making process.</p>
+		<p class="mt-4 text-sm text-base-content/70">{translations[$language].seeNoDisputeInActionDescription}</p>
 	  </div>
   </div>
 

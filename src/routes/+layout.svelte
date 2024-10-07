@@ -25,6 +25,7 @@
         <link rel="stylesheet" href={fontLink.href}>
     {/if}
 </svelte:head>
+
   
   <div data-theme={$theme} style="font-family: {$fontStore.fontFamily}">
     <ThemeToggle />
