@@ -72,28 +72,26 @@
   
 	<h2 class="text-3xl font-bold text-center mb-8">{translations[$language].howToUse}</h2>
   
-	<div class="space-y-16">
-		{#each steps as step, index}
-		  <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
-			<div class="w-full md:w-1/2 order-2 md:order-1">
-			  <img src={step.image} alt={step.title} class="rounded-lg shadow-lg w-full" />
-			</div>
-			<div class="w-full md:w-1/2 order-1 md:order-2">
-			  <div class="flex items-center mb-4">
-				<span class="text-4xl mr-4">{step.emoji}</span>
-				<h3 class="text-2xl font-bold">{index + 1}. {step.title}</h3>
-			  </div>
-			  <p class="text-lg">{step.description}</p>
-			</div>
-		  </div>
-		{/each}
-	  </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+  {#each steps as step, index}
+    <div class="border-dotted border-2 border-gray-300 p-6 rounded-lg">
+      <div class="flex items-center mb-4">
+        <span class="text-4xl mr-4">{step.emoji}</span>
+        <h3 class="text-2xl font-bold">{index + 1}. {step.title}</h3>
+      </div>
+      <div class="border-2 border-primary p-1 rounded-lg mb-4">
+        <img src={step.image} alt={step.title} class="rounded-lg shadow-lg w-full" />
+      </div>
+      <p class="text-lg">{step.description}</p>
+    </div>
+  {/each}
+</div>
 	
 	
 	  <div class="mt-16 text-center">
 		<h3 class="text-2xl font-bold mb-4">{translations[$language].seeNoDisputeInAction}</h3>
 		<div class="aspect-w-16 aspect-h-9">
-		  <img src={demoImage} alt="NoDyspute Demo" class="rounded-lg shadow-lg mx-auto border-2 w-[50%]" />
+		  <img src={demoImage} alt="NoDyspute Demo" class="rounded-lg shadow-lg mx-auto border-2 border-gray-300 w-[50%]" />
 		</div>
 		<p class="mt-4 text-sm text-base-content/70">{translations[$language].seeNoDisputeInActionDescription}</p>
 	  </div>
