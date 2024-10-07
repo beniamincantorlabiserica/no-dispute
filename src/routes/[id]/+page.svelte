@@ -3,10 +3,12 @@
 	import IdeasManager from '../../lib/components/IdeasManager.svelte';
     import { Github, Globe } from 'lucide-svelte';
     import { goto } from '$app/navigation';
+  	import { language } from '$lib/stores/language';
+    import { translations } from '$lib/translations';
 
-    
       const id = $page.params.id;
       console.log(`Current page ID: ${id}`);
+      
       // Perform other operations with id
       const currentYear = new Date().getFullYear();
       
@@ -22,10 +24,10 @@
 <div class="container mx-auto px-4 min-h-[50dvh] flex flex-col justify-between">
     <div class="flex-grow flex items-center justify-center">
       <div class="text-center">
-        <h2 class="text-3xl font-bold mb-4">Want to create your own discussion subject? 🚀</h2>
-        <p class="text-lg mb-6">Join our community and start engaging conversations today!</p>
+        <h2 class="text-3xl font-bold mb-4">{translations[$language].createOwnSubject}</h2>
+        <p class="text-lg mb-6">{translations[$language].createOwnSubjectDescription}</p>
         <button class="btn btn-primary btn-lg hover:btn-secondary transition-colors duration-300" on:click={goToIndex}>
-          Try Now
+          {translations[$language].createOwnSubjectButton}
         </button>
       </div>
     </div>

@@ -3,6 +3,8 @@
     import { createSubject } from '$lib/storage.js';
     import { onMount } from 'svelte';
     import confetti from 'canvas-confetti';
+    import { language } from '$lib/stores/language';
+    import { translations } from '$lib/translations';
 
     let title = '';
     let error = '';
@@ -23,9 +25,9 @@ function adjustInputSize() {
         origin: { y: 0.6 }
       });
       let data = await createSubject(title)
-      console.log("DATA = ", data);
+      // console.log("DATA = ", data);
     //   goto('/' + data.id);
-    goto(`/${data.id}?title=${encodeURIComponent(title)}`);
+    goto(`/${data.id}`);
 
     }
 
@@ -41,12 +43,12 @@ function adjustInputSize() {
           bind:value={title}
           bind:this={inputElement}
           on:input={adjustInputSize}
-          placeholder="Enter subject title"
+          placeholder={translations[$language].nodisputeCreationPlaceholder}
           required
           class="input input-bordered flex-grow min-h-[4rem] resize-none w-full mb-4 overflow-hidden transition-all duration-200 ease-in-out  placeholder:leading-[3.5rem]"
           rows="1"
         ></textarea>
-        <button type="submit" class="btn btn-primary self-stretch">Create Subject</button>
+        <button type="submit" class="btn btn-primary self-stretch">{translations[$language].nodisputeCreationButton}</button>
       </div>
   </form>
   

@@ -1,22 +1,24 @@
 <script>
     import { slide } from 'svelte/transition';
-  
+  	import { language } from '$lib/stores/language';
+    import { translations } from '$lib/translations';
+
     let faqs = [
       {
-        question: "What is NoDispute?",
-        answer: "Dispute is a web application that allows users to create and vote on ideas. It is built with SvelteKit and uses a serverless backend for data storage and retrieval."
+        question: translations[$language].faqQuestionOne,
+        answer: translations[$language].faqAnswerOne
       },
       {
-        question: "Can I use NoDispute to manage my projects?",
-        answer: "Yes, Dispute is designed to help you manage your projects by allowing you to create subjects and ideas, vote on ideas, and view the most popular ideas. It is a great tool for brainstorming and decision-making."
+        question: translations[$language].faqQuestionTwo,
+        answer: translations[$language].faqAnswerTwo
       },
       {
-        question: "Is NoDispute free?",
-        answer: "Yes, Dispute is totally free, no account needed. You can start creating subjects and ideas right away without any restrictions."
+        question: translations[$language].faqQuestionThree,
+        answer: translations[$language].faqAnswerThree
       },
       {
-        question: "Who made NoDispute?",
-        answer: "NoDispute was created by Beniamin Avramita, a software developer based in Denmark. You can find more information about Beniamin on his website."
+        question: translations[$language].faqQuestionFour,
+        answer: translations[$language].faqAnswerFour
       }
     ];
   
@@ -28,7 +30,7 @@
   </script>
   
   <div class="container mx-auto p-4 max-w-3xl my-8">
-    <h2 class="text-3xl font-bold mb-6 text-center text-primary">Frequently Asked Questions</h2>
+    <h2 class="text-3xl font-bold mb-6 text-center text-primary">{translations[$language].faqTitle}</h2>
     <div class="space-y-4">
       {#each faqs as faq, index}
         <div class="card bg-base-200 shadow-xl">
