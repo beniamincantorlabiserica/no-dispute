@@ -12,7 +12,8 @@
   	import { language } from '$lib/stores/language';
     import { translations } from '$lib/translations';
 
-    const pb = new PocketBase('https://pine-plus.pockethost.io');
+    const pb = new PocketBase('https://pocketbase-vso44okw4woow8co0ckc4s8c.netsaas.dev');
+
     
     $: ideas = new Set();
     // $: voted = localStorage.getItem('voted') || false;

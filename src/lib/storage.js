@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('https://pine-plus.pockethost.io');
+const pb = new PocketBase('https://pocketbase-vso44okw4woow8co0ckc4s8c.netsaas.dev');
 
 export async function createSubject(title) {
   // console.log("TITLE: " + title)
