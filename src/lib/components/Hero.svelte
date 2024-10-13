@@ -23,12 +23,11 @@
    <div class="hero-content flex-col lg:flex-row-reverse">
      <video
        bind:this={videoElement}
-       src='https://pocketbase-vso44okw4woow8co0ckc4s8c.netsaas.dev/api/files/vc4qa9eyu6sjfek/ezz05dar4x56uu1/nodispute_wDtfzvBOpq.mp4'
-       class="w-[40%] m-auto bg-base-100"
+       src='/nodispute.mp4'
+       class="w-[40%] m-auto bg-base-100 border-2 border-primary border-dashed rounded-lg shadow-lg"
        autoplay
        loop
        muted
-       playsinline
      />
      <div class="hero-content text-left">
        <div>
