@@ -24,7 +24,7 @@
      <video
        bind:this={videoElement}
        src='/nodispute.mp4'
-       class="w-[40%] m-auto bg-base-100 border-2 border-primary border-dashed rounded-lg shadow-lg"
+       class="w-[80%] m-auto bg-base-100 border-2 border-primary border-dashed rounded-lg shadow-lg sm:w-[40%] p-4 bg-primary/10"
        autoplay
        loop
        muted
