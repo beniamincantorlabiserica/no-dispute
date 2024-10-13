@@ -1,7 +1,7 @@
 <script>
     export let subjectId;
     import { addIdea } from '$lib/storage.js';
-    import { onMount } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
     import { getAllIdeas } from '$lib/storage.js';
     import { vote } from "$lib/vote";
     import { page } from '$app/stores';
@@ -110,18 +110,18 @@
       });
 
       function subscribeToVotes() {
-    unsubscribe = pb.collection('votes').subscribe('*', async ({ action, record }) => {
-      if (record.userKey === userKey) {
-        if (action === 'create') {
-          userVotes = [...userVotes, record];
-        } else if (action === 'update') {
-          userVotes = userVotes.map(v => v.id === record.id ? record : v);
-        } else if (action === 'delete') {
-          userVotes = userVotes.filter(v => v.id !== record.id);
-        }
+        unsubscribe = pb.collection('votes').subscribe('*', async ({ action, record }) => {
+          if (record.userKey === userKey) {
+            if (action === 'create') {
+              userVotes = [...userVotes, record];
+            } else if (action === 'update') {
+              userVotes = userVotes.map(v => v.id === record.id ? record : v);
+            } else if (action === 'delete') {
+              userVotes = userVotes.filter(v => v.id !== record.id);
+            }
+          }
+        });
       }
-    });
-  }
 
     function mergeUniqueIdeas(existingIdeas, recordIdeas) {
         const idMap = new Map(existingIdeas.map(idea => [idea.id, idea]));
@@ -193,6 +193,10 @@
       });
   }
 
+
+  onDestroy(() => {
+    pb.collection('votes').unsubscribe();
+  });
 
 
   </script>
