@@ -28,6 +28,7 @@
        autoplay
        loop
        muted
+       playsinline
      />
      <div class="hero-content text-left">
        <div>
