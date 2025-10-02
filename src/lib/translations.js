@@ -45,6 +45,9 @@ export const translations = {
       createOwnSubjectDescription: "Join our community and start engaging conversations today!",
       createOwnSubjectButton: "Try Now",
       customOwnerText: "Hi there! I'm Beniamin, the creator of NoDispute.<br> I hope you enjoy using the app! If you have any feedback or suggestions, feel free to create/vote on an idea or reach out to me on Twitter. <br>Happy voting! 🚀",
+      offlineModeTitle: "We are offline for now",
+      offlineModeMessage: "Feel free to explore the app with limitations - creating subjects functionality does not work",
+      exploreMode: "Explore Mode",
     },
     dk: {
       heroWelcome: "Velkommen til NoDispute 🤝",
@@ -91,6 +94,9 @@ export const translations = {
       createOwnSubjectDescription: "Bliv en del af vores fællesskab og start engagerende samtaler i dag!",
       createOwnSubjectButton: "Prøv nu",
       customOwnerText: "Hej med dig! Jeg er Beniamin, skaberen af NoDispute.<br> Jeg håber, du nyder at bruge appen! Hvis du har feedback eller forslag, er du velkommen til at oprette/stemme på en idé eller kontakte mig på Twitter. <br>God fornøjelse med afstemningen! 🚀",
+      offlineModeTitle: "Vi er offline i øjeblikket",
+      offlineModeMessage: "Du er velkommen til at udforske appen med begrænsninger - funktionaliteten til at oprette emner virker ikke",
+      exploreMode: "Udforskningstilstand",
     },
     ro: {
       heroWelcome: "Bine ați venit la NoDispute 🤝",
@@ -137,5 +143,8 @@ export const translations = {
       createOwnSubjectDescription: "Alăturați-vă comunității noastre și începeți conversații angajante astăzi!",
       createOwnSubjectButton: "Încercați acum",
       customOwnerText: "Bună! Sunt Beniamin, creatorul NoDispute.<br> Sper să vă placă să folosiți aplicația! Dacă aveți feedback sau sugestii, nu ezitați să creați/votați o idee sau să mă contactați pe Twitter. <br>Votare plăcută! 🚀",
+      offlineModeTitle: "Suntem offline momentan",
+      offlineModeMessage: "Explorați aplicația cu limitări - funcționalitatea de creare a subiectelor nu funcționează",
+      exploreMode: "Mod explorare",
     },
   };
